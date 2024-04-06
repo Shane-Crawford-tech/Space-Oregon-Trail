@@ -1,0 +1,101 @@
+Encounter Types:
+
+- Trade (Neutral/Friendly NPC's to trade with; shop)
+- Battle(?) (Bandits, which can lead to a battle)
+- Natural/Event (i.e. asteroids, or a wreckage)
+- Ship-based (Focuses on the ship/crew)
+
+
+
+Trade:
+- One option is always to initiate a trade (unless blacked out, if, say, the owner hates you.)
+- One or more dialogue options, consisting of lore, background, etc.
+- An option to learn something useful, such as a location
+- An option for things such as quests or items to give (can unlock or complete a quest)
+- An option to exit dialogue.
+
+
+Battle:
+- This can be with bandits,corporations, general explorers, etc.
+- Typically hostile in nature, with one option to always go into battle immediately, denounced with the tag [BATTLE] or such.
+- An option to get more information on what is going on.
+- An option or two for item usage (only shown if had) that can influence the outcome in different ways (such as diffusing immediately)
+- An alternative way to solve the situation without items, such as persuasion.
+
+
+Event:
+- Just a general event type, such as running into an asteroid field, or finding the remains of another ship to explore
+- Option to immediately "leave" (either no or slight drawbacks, such as taking a different route)
+- Option to go through the event (such as explore or survive), with random chance determining the damage taken or items found.
+- Option to use items in these scinarios, which can increase the chances of a better outcome.
+
+Ship:
+- More focused on the ship itself and individuals inside, this can range from an event to a disease
+- Typically have between a few options, resulting in losing crew, an item, losing morale, etc.
+- Certain events will occur based on the population had (goes along with progression)
+
+
+
+
+General Dialogue Route:
+
+1. Initial narration (what is the event)
+2. Options
+3. Player choice w/ result
+4. Either redirect (exit or battle) or go back to menu (after asking a question)
+5. If go back, then repeat until redirect.
+
+
+
+
+
+
+
+
+
+
+
+Encounters:
+
+E1: "Your colony approaches an asteroid field. The only way to get to your destination on time is to go through. Alternatively, you could change route and go around. What do you choose?"
+  1.) [Chance] Decide to go through anyways (between none and moderate damage)
+  2.) [Exit] Decide to go a different route
+  3.) [Item/Weaponry] Fire away at the asteroids to clear a path
+  4.) [Item/Weaponry] Overcharge the reactor, giving the ship enough power to get through quickly and unscathed
+
+
+E2: "As you do yearly, your colony hosts the anneversary of the Space Warlord's death. This time, however, it seems the colony wants to have a massive feast. Will you keep the celebration modest, or go all out?"
+  1.) [+?# of colonists, - supplies] Allow a feast to be had! The more food the merrier, as they say.
+  2.) [- morale] Keep things modest. You will all need to keep supplies for the journey ahead.
+
+
+E3: "As your ship charts its course, you come across an abandoned fleet of vessels which don't appear to have been picked clean. Valuable loot could be found here."
+  1.) [Chance] Choose to explore the vessels.
+      - 60% chance of more materials
+      - 30% chance of a battle with diseased crew remnants
+      - 5% chance of your crew catching disease (must be cured or colony will succumb)
+      - 5% chance of finding a rare/valuable item
+  2.) [Exit] Continue past the fleet. Not worth risking your lives for.
+  3.) [Ship Upgrade] Using your acquired long range radio, you radio the nearest fleet to inform them of the wreckage.
+      - Recieve gold/supplies in payment for the information
+
+
+E4: [Dependant on having Ship Radio or not] "Your colony comes across a group of bandit ships on its travels. They radio over, 'Give us all of your valuables and gold, or we will destroy that puny ship of yours-'. What is your response?"
+  1.) [Choice] You conceide, allowing the bandits to dock aboard the ship to get whatever they want. They don't hurt anyone, but you are now mostly broke and resourceless.
+  2.) [Choice] You attempt to persuade the bandits to let you go.
+      - With bigger colony: "After all, your colony could take them on any time of the year."
+      - With smaller: "After all, picking on small fry like you would be more a waste of time, yes?"
+  3.) [Battle!] No one attempts to attack your colony without punishment. To your stations!
+  4.) [Item/Weaponry] Your obvious firepower makes you wonder why they even attempted this.
+      - Intimidation attempt
+  5.) [Question] Uhm....who are you, exactly?
+      - "Us? What does it look like, that we're some merchants trying to trade some quilts? HAHAHA, shut up and move it, or you'll regret it."
+
+
+
+
+
+
+
+
+
