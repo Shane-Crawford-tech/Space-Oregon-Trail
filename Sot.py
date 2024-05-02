@@ -9,6 +9,7 @@ import pygame
 import sys
 import pygame_menu as pm 
 from Button import Button
+from map_module import run_map
 
 from pygame.locals import (
     KEYDOWN,
@@ -20,6 +21,8 @@ from pygame.locals import (
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
+CONFIG_FILE = "config.txt"
+
 
 
 pygame.init()
@@ -64,22 +67,22 @@ def play():
     
     button_surface = pygame.image.load("button.png")
     button_surface_hover = pygame.image.load("button_hover.png")
-    button_surface = pygame.transform.scale(button_surface, (400, 150))
+    button_surface = pygame.transform.scale(button_surface, (SCREEN_WIDTH/5, SCREEN_HEIGHT/10))
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
     running = True
 
-    EASY_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
+    EASY_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
                         x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                         text_input="Easy", font=get_font(50))
 
-    NORMAL_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
-                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 100,
+    NORMAL_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
+                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/8,
                         text_input="Normal", font=get_font(50))
 
-    HARD_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
-                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 200,
+    HARD_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
+                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/4,
                         text_input="Hard", font=get_font(50))
 
     while running:
@@ -94,12 +97,14 @@ def play():
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_pos = pygame.mouse.get_pos()
                 if EASY_BUTTON.rect.collidepoint(mouse_pos):
-                    easy(startGame)
+                    print("you selected easy")
+                    run_map() # As a placeholder for starting the game
                 elif NORMAL_BUTTON.rect.collidepoint(mouse_pos):
-                    normal(startGame)
+                    print("you selected normal")
+                    run_map() # As a placeholder for starting the game
                 elif HARD_BUTTON.rect.collidepoint(mouse_pos):
-                    hard(startGame)
-
+                    print("you selected hard")
+                    run_map() # As a placeholder for starting the game
         screen.fill((255, 255, 255))
         BG = pygame.image.load("space.jpg")
         BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -117,6 +122,17 @@ def play():
         pygame.display.flip()
 
 
+def load_config():
+    try:
+        with open(CONFIG_FILE, "r") as file:
+            resolution_index = int(file.read())
+            return resolution_index
+    except FileNotFoundError:
+        return 0  # Default resolution index
+
+def save_config(index):
+    with open(CONFIG_FILE, "w") as file:
+        file.write(str(index))
 
 def options():
     """
@@ -133,6 +149,8 @@ def options():
                   ("2560x1440", (2560, 1440)), 
                   ("3840x2160", (3840, 2160))]
     
+    default_resolution_index = load_config()
+    
     # Creates  pygame menu Menu
     settings = pm.Menu(title="Settings",
                        width=SCREEN_WIDTH,
@@ -141,9 +159,9 @@ def options():
     
     # Set default resolution as the initial value for the dropdown
     resolution_dropdown = settings.add.dropselect(title="Window Resolution", items=resolution, 
-                                                dropselect_id="Resolution", default=0)  # Set default index to 0
+                                                dropselect_id="Resolution", default=default_resolution_index)  # Set default index to 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
-    prev_resolution = resolution[0][1]  # Use default resolution as initial previous resolution
+    prev_resolution = resolution[default_resolution_index][1]  # Use default resolution as initial previous resolution
     
     event = pygame.event.poll()
     running = True
@@ -154,6 +172,7 @@ def options():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    save_config(resolution_dropdown.get_value()[1])  # Save selected resolution index
                     main_menu()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # Check if dropdown has been clicked
@@ -166,8 +185,7 @@ def options():
                         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
                         prev_resolution = current_resolution
                         
-                        
-        settings.update(pygame.event.get())
+
         screen.fill((255, 255, 255))
         BG = pygame.image.load("space.jpg")
         BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -178,7 +196,7 @@ def options():
         settings.update([event])
         pygame.display.flip()
 
-
+    save_config(resolution_dropdown.get_value()[1])  # Save selected resolution index before exiting options menu
 
 def main_menu():
     """
@@ -193,17 +211,18 @@ def main_menu():
 
     running = True
 
-    PLAY_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
+    PLAY_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
                         x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                         text_input="PLAY", font=get_font(50))
 
-    OPTIONS_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
-                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 100,
+    OPTIONS_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
+                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/8,
                         text_input="Options", font=get_font(50))
 
-    QUIT_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (200, 75)),
-                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 200,
+    QUIT_BUTTON = Button(image=pygame.transform.scale(pygame.image.load("button.png"), (SCREEN_WIDTH/5, SCREEN_HEIGHT/10)),
+                        x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/4,
                         text_input="Quit", font=get_font(50))
+    
 
     while running:
         for event in pygame.event.get():
@@ -223,6 +242,7 @@ def main_menu():
                 elif QUIT_BUTTON.rect.collidepoint(mouse_pos):
                     pygame.quit()
                     sys.exit()
+        
 
         screen.fill((255, 255, 255))
         BG = pygame.image.load("space.jpg")
@@ -237,6 +257,7 @@ def main_menu():
         PLAY_BUTTON.change_color(pygame.mouse.get_pos())
         OPTIONS_BUTTON.change_color(pygame.mouse.get_pos())
         QUIT_BUTTON.change_color(pygame.mouse.get_pos())
+        
 
         pygame.display.flip()
 
@@ -271,7 +292,3 @@ def main_menu():
                     sys.exit()
 
         pygame.display.flip()
-
-
-
-main_menu()
