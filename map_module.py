@@ -39,6 +39,32 @@ def run_map():
     # Resize the image to fit the tile size
     unknown_img = pygame.transform.scale(unknown_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
+    # Load the image for empty tiles
+    empty_img = pygame.image.load("empty.png")
+    # Resize the image to fit the tile size
+    empty_img = pygame.transform.scale(empty_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
+
+    # Load the image for empty tiles
+    peaceful_img = pygame.image.load("peaceful.png")
+    # Resize the image to fit the tile size
+    peaceful_img = pygame.transform.scale(peaceful_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
+
+    # Load the image for empty tiles
+    hostile_img = pygame.image.load("hostile.png")
+    # Resize the image to fit the tile size
+    hostile_img = pygame.transform.scale(hostile_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
+
+    # Load the image for empty tiles
+    shop_img = pygame.image.load("shop.png")
+    # Resize the image to fit the tile size
+    shop_img = pygame.transform.scale(shop_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
+
+    # Load the image for empty tiles
+    event_img = pygame.image.load("event.png")
+    # Resize the image to fit the tile size
+    event_img = pygame.transform.scale(event_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
+
+
     # Generate map tiles
     seed(randint(0, 1000))  # Seed for map generation
     map_tiles = []
@@ -128,17 +154,16 @@ def run_map():
                 else:
                     # Draw revealed tiles based on their type
                     if tile_type == 0:
-                        tile_color = (255, 255, 255)  # White for empty tile
+                        screen.blit(empty_img, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT))  # White for empty tile
                     elif tile_type == 1:
-                        tile_color = (123, 176, 121)  # Green for peaceful encounter
+                        screen.blit(peaceful_img, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT))  # Green for peaceful encounter
                     elif tile_type == 2:
-                        tile_color = (112, 26, 46)  # Red for hostile encounter
+                        screen.blit(hostile_img, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT))  # Red for hostile encounter
                     elif tile_type == 3:
-                        tile_color = (81, 120, 219)  # Blue for event
+                        screen.blit(event_img, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT))  # Blue for event
                     elif tile_type == 4:
-                        tile_color = (245, 197, 54)  # Yellow for shop
+                        screen.blit(shop_img, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT))  # Yellow for shop
                     # Draw the revealed map tile
-                    pygame.draw.rect(screen, tile_color, (col * MAP_TILE_WIDTH, row * MAP_TILE_HEIGHT, MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
         # Update the display
         pygame.display.flip()
@@ -146,6 +171,3 @@ def run_map():
     # Quit pygame properly
     pygame.quit()
 
-# If this file is run directly, execute the map module
-if __name__ == "__main__":
-    run_map()
