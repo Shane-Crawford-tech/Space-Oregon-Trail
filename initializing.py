@@ -4,10 +4,11 @@ import pygame
 import sys
 import pygame_menu as pm 
 from Button import Button
-import SOT
+from SOT import *
+import Encounters
 
 
-SOT.main_menu()
+main_menu()
 
 class startGame():
     def __init__():
@@ -32,7 +33,7 @@ class startGame():
         BG = pygame.image.load("space.jpg")
         BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(BG, (0, 0))
-        MENU_TEXT = SOT.get_font(int(SCREEN_WIDTH * 0.078), None).render("Start Screen", True, "White")
+        MENU_TEXT = get_font(int(SCREEN_WIDTH * 0.078), None).render("Start Screen", True, "White")
         screen.blit(MENU_TEXT, (int(SCREEN_WIDTH * 0.5) - MENU_TEXT.get_width() // 2, int(SCREEN_HEIGHT * 0.25) - MENU_TEXT.get_height() // 2))
     pass
 
