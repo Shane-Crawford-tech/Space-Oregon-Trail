@@ -484,7 +484,7 @@ def run_encounter(SCREEN_WIDTH, SCREEN_HEIGHT):
 
 def choose_shop():
   random_number = 0
-  chosen_encounter = encounter_list[random_number]
+  chosen_encounter = shop[random_number]
   return chosen_encounter
 
 def run_shop(SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -494,7 +494,7 @@ def run_shop(SCREEN_WIDTH, SCREEN_HEIGHT):
 
 def choose_peaceful():
   random_number = 1
-  chosen_encounter = encounter_list[random_number]
+  chosen_encounter = peaceful[random_number]
   return chosen_encounter
 
 def run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -504,22 +504,22 @@ def run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT):
 
 def choose_event():
   random_number = randint(2, 3)
-  chosen_encounter = encounter_list[random_number]
+  chosen_encounter = event[random_number]
   return chosen_encounter
 
 def run_event(SCREEN_WIDTH, SCREEN_HEIGHT):
   global chosen_encounter
-  chosen_encounter =choose_event()
+  chosen_encounter = choose_event()
   encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def choose_hostile():
   random_number = 4
-  chosen_encounter = encounter_list[random_number]
+  chosen_encounter = hostile[random_number]
   return chosen_encounter
 
 def run_hostile(SCREEN_WIDTH, SCREEN_HEIGHT):
   global chosen_encounter
-  chosen_encounter =choose_hostile()
+  chosen_encounter = choose_hostile()
   encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 shop = [e1]
