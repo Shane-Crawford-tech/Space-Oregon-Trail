@@ -7,13 +7,12 @@ from pygame.locals import (
     MOUSEBUTTONDOWN
 )
 
-def run_map():
+def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
     # Initialize pygame
     pygame.init()
 
     # Define constants for the screen width and height
-    SCREEN_WIDTH = 800
-    SCREEN_HEIGHT = 600
+
 
     # Create the screen object
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -27,40 +26,40 @@ def run_map():
 
     # Define constants for map tile types and their ranges
     TILE_RANGES = {
-        (0, 40): 0,  # Empty
-        (41, 60): 1,  # Peaceful encounter
-        (61, 80): 2,  # Hostile encounter
-        (81, 90): 3,  # Event
-        (91, 100): 4,  # Shop
+        (0, 50): 0,  # Empty
+        (51, 65): 1,  # Peaceful encounter
+        (66, 89): 2,  # Hostile encounter
+        (90, 95): 3,  # Event
+        (96, 100): 4,  # Shop
     }
 
     # Load the image for unknown tiles
-    unknown_img = pygame.image.load("unknown.png")
+    unknown_img = pygame.image.load("images\\unknown.png")
     # Resize the image to fit the tile size
     unknown_img = pygame.transform.scale(unknown_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
     # Load the image for empty tiles
-    empty_img = pygame.image.load("empty.png")
+    empty_img = pygame.image.load("images\\empty.png")
     # Resize the image to fit the tile size
     empty_img = pygame.transform.scale(empty_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
     # Load the image for empty tiles
-    peaceful_img = pygame.image.load("peaceful.png")
+    peaceful_img = pygame.image.load("images\\peaceful.png")
     # Resize the image to fit the tile size
     peaceful_img = pygame.transform.scale(peaceful_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
     # Load the image for empty tiles
-    hostile_img = pygame.image.load("hostile.png")
+    hostile_img = pygame.image.load("images\\hostile.png")
     # Resize the image to fit the tile size
     hostile_img = pygame.transform.scale(hostile_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
     # Load the image for empty tiles
-    shop_img = pygame.image.load("shop.png")
+    shop_img = pygame.image.load("images\\shop.png")
     # Resize the image to fit the tile size
     shop_img = pygame.transform.scale(shop_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
     # Load the image for empty tiles
-    event_img = pygame.image.load("event.png")
+    event_img = pygame.image.load("images\\event.png")
     # Resize the image to fit the tile size
     event_img = pygame.transform.scale(event_img, (MAP_TILE_WIDTH, MAP_TILE_HEIGHT))
 
