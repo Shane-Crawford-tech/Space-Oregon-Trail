@@ -71,10 +71,6 @@ def play():
     """
     Function to start the game
     """
-    
-    button_surface = BUTTON
-    button_surface_hover = pygame.image.load("images\\button_hover.png")
-    button_surface = pygame.transform.scale(button_surface, (SCREEN_WIDTH/5, SCREEN_HEIGHT/10))
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
@@ -99,19 +95,18 @@ def play():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
+                    main_menu()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_pos = pygame.mouse.get_pos()
                 if EASY_BUTTON.rect.collidepoint(mouse_pos):
                     print("you selected easy")
-                    run_map() # As a placeholder for starting the game
+                    run_map(SCREEN_WIDTH, SCREEN_HEIGHT) # As a placeholder for starting the game
                 elif NORMAL_BUTTON.rect.collidepoint(mouse_pos):
                     print("you selected normal")
-                    run_map() # As a placeholder for starting the game
+                    run_map(SCREEN_WIDTH, SCREEN_HEIGHT) # As a placeholder for starting the game
                 elif HARD_BUTTON.rect.collidepoint(mouse_pos):
                     print("you selected hard")
-                    run_map() # As a placeholder for starting the game
+                    run_map(SCREEN_WIDTH, SCREEN_HEIGHT) # As a placeholder for starting the game
         screen.fill((255, 255, 255))
         BG = pygame.image.load("images\\space.jpg")
         BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -211,9 +206,6 @@ def encounter_menu():
     """
                 
     pygame.display.set_caption("Encounter")
-    button_surface = BUTTON
-    button_surface_hover = pygame.image.load("images\\button_hover.png")
-    button_surface = pygame.transform.scale(button_surface, (400, 150))
     
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
@@ -561,9 +553,6 @@ def main_menu():
     Function to open the main menu.
     """
     pygame.display.set_caption("Menu")
-    button_surface = BUTTON
-    button_surface_hover = pygame.image.load("images\\button_hover.png")
-    button_surface = pygame.transform.scale(button_surface, (400, 150))
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
