@@ -1,5 +1,7 @@
 from random import randint, seed, choice
 import pygame
+from Constants import *
+from Encounters import *
 from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
@@ -10,7 +12,7 @@ from pygame.locals import (
 def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
     # Initialize pygame
     pygame.init()
-
+    global chosen_encounter
     # Define constants for the screen width and height
 
 
@@ -113,30 +115,39 @@ def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
                     if hidden_type is not None:  # Check if there's a hidden encounter
                         map_tiles[clicked_row][clicked_col] = hidden_type  # Set the tile to the hidden type
                         if hidden_type == 1:
+                            
+                            run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT)
                             print("You activated a peaceful encounter!")
                             # peaceful(encounter):
                         elif hidden_type == 2:
+                            run_hostile(SCREEN_WIDTH, SCREEN_HEIGHT)
                             print("You activated a hostile encounter!")
                             # hostile(encounter):
                         elif hidden_type == 3:
+                            run_event(SCREEN_WIDTH, SCREEN_HEIGHT)
                             print("You activated an event!")
                             # event(encounter):
                         elif hidden_type == 4:
+                            run_shop(SCREEN_WIDTH, SCREEN_HEIGHT)
                             print("You activated a shop!")
                             # shop(encounter):
                     else:
                         print("No hidden encounter here!")
                 else:
                     if tile_type == 1:
+                        run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT)
                         print("You activated a peaceful encounter!")
                         # peaceful(encounter):
                     elif tile_type == 2:
+                        run_hostile(SCREEN_WIDTH, SCREEN_HEIGHT)
                         print("You activated a hostile encounter!")
                         # hostile(encounter):
                     elif tile_type == 3:
+                        run_event(SCREEN_WIDTH, SCREEN_HEIGHT)
                         print("You activated an event!")
                         # event(encounter):
                     elif tile_type == 4:
+                        run_shop(SCREEN_WIDTH, SCREEN_HEIGHT)
                         print("You activated a shop!")
                         # shop(encounter):
 
