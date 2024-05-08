@@ -4,6 +4,7 @@ import sys
 import pygame_menu as pm 
 from Button import Button  # Assuming you have a Button class for handling button events
 from SOT import SCREEN_HEIGHT, SCREEN_WIDTH
+from Inventory_System import*
 
 # Constants for initial health and shields
 INITIAL_HEALTH = 100
@@ -44,7 +45,7 @@ def game():
     current_shields = INITIAL_SHIELDS
 
     # Load the shield image
-    shield_img = pygame.image.load("shield.png")
+    shield_img = pygame.image.load("images\\shield.png")
     shield_img = pygame.transform.scale(shield_img, (int(SCREEN_WIDTH/15), int(SCREEN_WIDTH/15)))  # Resize the image
 
     # Define the clickable area for the inventory button
@@ -64,14 +65,14 @@ def game():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # Check if the mouse click is inside the inventory button area
                 if event.button == 1 and inventory_button_rect.collidepoint(event.pos):
-                    
+
                     print("Inventory button clicked!")  # Placeholder action, replace with actual action
 
         # Clear screen
         screen.fill((0, 0, 0))
 
         # Draw background
-        BG = pygame.image.load("space.jpg")
+        BG = pygame.image.load("images\\space.jpg")
         BG = pygame.transform.scale(BG, (3*SCREEN_WIDTH//4, 3*SCREEN_HEIGHT//4))
         screen.blit(BG, (0, 0))
 
