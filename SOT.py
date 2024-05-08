@@ -245,3 +245,23 @@ def main_menu():
                     sys.exit()
 
         pygame.display.flip()
+    
+def Inventory_Menu():
+
+    pygame.display.set_caption("Inventory")
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+    Inventory_Slot_Size = SCREEN_HEIGHT/12
+
+    for column in range(5):
+        for row in range(20):
+            screen.blit(BUTTON, (row * Inventory_Slot_Size, column * Inventory_Slot_Size))
+            screen.fill((255, 255, 255))
+    
+    runnung = True
+    while runnung:
+        BG = pygame.image.load("images\\space.jpg")
+        BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        screen.blit(BG, (0, 0))
+
+        pygame.display.flip()
