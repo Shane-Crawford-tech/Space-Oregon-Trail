@@ -10,6 +10,7 @@ from pygame.locals import (
 )
 
 def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
+    from SOT import main_menu
     # Initialize pygame
     pygame.init()
     global chosen_encounter
@@ -95,7 +96,7 @@ def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
             if event.type == KEYDOWN:
                 # Was it the Escape key? If so, stop the loop.
                 if event.key == K_ESCAPE:
-                    running = False
+                    main_menu()
             # Did the user click the window close button? If so, stop the loop.
             elif event.type == QUIT:
                 running = False
@@ -131,8 +132,6 @@ def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
                             run_shop(SCREEN_WIDTH, SCREEN_HEIGHT)
                             print("You activated a shop!")
                             # shop(encounter):
-                    else:
-                        print("No hidden encounter here!")
                 else:
                     if tile_type == 1:
                         run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -180,4 +179,3 @@ def run_map(SCREEN_WIDTH, SCREEN_HEIGHT):
 
     # Quit pygame properly
     pygame.quit()
-
