@@ -493,7 +493,7 @@ def run_shop(SCREEN_WIDTH, SCREEN_HEIGHT):
   encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def choose_peaceful():
-  random_number = 1
+  random_number = 0
   chosen_encounter = peaceful[random_number]
   return chosen_encounter
 
@@ -503,7 +503,7 @@ def run_peaceful(SCREEN_WIDTH, SCREEN_HEIGHT):
   encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def choose_event():
-  random_number = randint(2, 3)
+  random_number = randint(0, 1)
   chosen_encounter = event[random_number]
   return chosen_encounter
 
@@ -513,7 +513,7 @@ def run_event(SCREEN_WIDTH, SCREEN_HEIGHT):
   encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 def choose_hostile():
-  random_number = 4
+  random_number = 0
   chosen_encounter = hostile[random_number]
   return chosen_encounter
 
@@ -526,5 +526,3 @@ shop = [e1]
 peaceful = [e2]
 event = [e3, e4]
 hostile = [e5]
-
-
