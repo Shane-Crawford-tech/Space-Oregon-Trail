@@ -1,11 +1,13 @@
 import random
 
 class Armor_and_Health:
-    def __init__(self, max_Health: int = 500, max_Armor: int = 500):
+    def __init__(self, image, name, max_Health: int = 500, max_Armor: int = 500):
         self.max_Health = max_Health
         self.current_Health = max_Health
         self.max_Armor = max_Armor
         self.current_Armor = max_Armor
+        self.name = name
+        self.image = image
     
     # String Return
     def __str__(self):
@@ -29,9 +31,6 @@ class Armor_and_Health:
     
     @max_Health.setter
     def max_Health(self, value: int):
-        if(value <= 500):
-            self._max_Health = 500
-        else:
             self._max_Health = value
     
     @property
@@ -51,10 +50,7 @@ class Armor_and_Health:
     
     @max_Armor.setter
     def max_Armor(self, value: int):
-        if(value <= 500):
-            self._max_Armor = 500
-        else:
-            self._max_Armor = value
+        self._max_Armor = value
     
     # Healing Functions
         # The rand variable tells the function if the healing is set or random in a set range
@@ -62,19 +58,19 @@ class Armor_and_Health:
         current_health = self.current_Health
         lower_Value = value - 10
         rand_num = ((random.randint(lower_Value,value)) + 20)
-        if (rand == False):
+        if (rand == False)and current_health < self.max_Health:
             self.current_Health = current_health + value
-        elif (rand == True):
-            self.current_Health = current_health + rand_num
+        elif (rand == True) and self.current_Health < self.max_Health:
+            self.current_Health += rand_num
     
     def Repair(self, value: int = 25, rand: bool = False):
         current_Armor = self.current_Armor
         lower_Value = value - 10
         rand_num = ((random.randint(lower_Value,value)) + 20)
-        if (rand == False):
+        if (rand == False) and self.current_Armor < self.max_Armor:
             self.current_Armor = current_Armor + value
-        elif (rand == True):
-            self.current_Armor = current_Armor + rand_num
+        elif (rand == True) and self.current_Armor < self.max_Armor:
+            self.current_Armor +=  rand_num
     
     # Damaging Functions
         # The rand variable tells the function if the damage is set or random in a set range
@@ -103,6 +99,7 @@ class Moves(Armor_and_Health):
         self.Move_Hit_Rate = Hit_Rate
         self.Move_Power = Power
         self.Move_Damage_Type = Move_Damage_Type
+        self.success = False
 
     # String Return
     def __str__(self):
@@ -166,24 +163,42 @@ class Moves(Armor_and_Health):
                     enemy.damage_Health(crit, rand)
                 elif (damage_Type == True):
                     enemy.damage_Health( damage, rand)
+                self.success = True
             elif (opp_A > 0):
                 if (damage_Type == False):
                     enemy.damage_Armor(damage, rand)
                 elif (damage_Type == True):
                     enemy.damage_Armor(crit, rand)
+                self.success = True
         else:
             print("Miss")
+            self.success = False
         
     def use_Repair_Move(self, target, rand: bool = False):
         power = self.Move_Power
         target.Repair(power, rand)
-        
+    
+    def use_Heal_Move(self, target, rand: bool = False):
+        power = self.Move_Power
+        target.Heal(power, rand)        
 
 
 
 #### test ####
-P1 = Armor_and_Health()
-M1 = Moves("Basic", 70, 30, True)
-print(P1)
-M1.use_Attack_Move(P1)
-print(P1)
+
+
+P1 = Armor_and_Health("images\\player.png", "The Player")
+
+B1 = Moves("Lasers", 80, 50, True)
+B2 = Moves("Machine Guns", 50, 80, False)
+B3 = Moves("Basic Repair", 90, 50, True)
+B4 = Moves("Basic Heal", 90, 50, False)
+
+OB1 = Moves("Lasers", 70, 30, True)
+OB2 = Moves("Machine Guns", 30, 70, False)
+OB3 = Moves("Basic Repair", 90, 50, True)
+OB4 = Moves("Basic Heal", 90, 50, False)
+
+
+player_moves_list = [B1, B2, B3, B4]
+opponent_moves_list = [OB1, OB2, OB3, OB4]
