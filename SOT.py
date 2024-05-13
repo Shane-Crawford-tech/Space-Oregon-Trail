@@ -9,9 +9,11 @@ import pygame
 import sys
 from Constants import *
 import pygame_menu as pm 
-from Button import Button
+from Button import *
+from Armor_Health_and_Move_Systems import *
+from battles import *
 from map_module import run_map
-
+from random import randint
 from pygame.locals import (
     KEYDOWN,
     MOUSEBUTTONDOWN,
@@ -19,7 +21,6 @@ from pygame.locals import (
     VIDEORESIZE,
     RESIZABLE
 )
-
 
 
 pygame.init()
@@ -97,7 +98,7 @@ def options():
     """
     Function to open the options menu
     """
-    global SCREEN_WIDTH, SCREEN_HEIGHT , chosen_encounter
+    global SCREEN_WIDTH, SCREEN_HEIGHT
 
     pygame.display.set_caption("Options")
 
@@ -113,7 +114,6 @@ def options():
     # Set default resolution as the initial value for the dropdown
     resolution_dropdown = settings.add.dropselect(title="Window Resolution", items=resolution, 
                                 dropselect_id="Resolution", default=default_resolution_index)  # Set default index to previous resolution or 0
-    encounter_button = settings.add.button(title="Encounter Testing")
     
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
     prev_resolution = resolution[default_resolution_index][1]  # Use default resolution as initial previous resolution
@@ -139,14 +139,14 @@ def options():
                         SCREEN_WIDTH, SCREEN_HEIGHT = current_resolution
                         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
                         prev_resolution = current_resolution
-                    
 
-        screen.fill((255, 255, 255))
-        BG = pygame.image.load("images\\space.jpg")
-        BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
-        screen.blit(BG, (0, 0))
-        MENU_TEXT = get_font(int(SCREEN_WIDTH * 0.039), None).render("This is the options screen", True, "white")
-        screen.blit(MENU_TEXT, (int(SCREEN_WIDTH * 0.5) - MENU_TEXT.get_width() // 2, int(SCREEN_HEIGHT * 0.25) - MENU_TEXT.get_height() // 2))
+
+            screen.fill((255, 255, 255))
+            BG = pygame.image.load("images\\space.jpg")
+            BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            screen.blit(BG, (0, 0))
+            MENU_TEXT = get_font(int(SCREEN_WIDTH * 0.039), None).render("This is the options screen", True, "white")
+            screen.blit(MENU_TEXT, (int(SCREEN_WIDTH * 0.5) - MENU_TEXT.get_width() // 2, int(SCREEN_HEIGHT * 0.25) - MENU_TEXT.get_height() // 2))
         settings.draw(screen)
         settings.update([event])
         pygame.display.flip()
@@ -201,7 +201,7 @@ def main_menu():
         BG = pygame.image.load("images\\space.jpg")
         BG = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(BG, (0, 0))
-        MENU_TEXT = get_font(int(SCREEN_WIDTH * 0.078), None).render("MAIN MENU", True, "White")
+        MENU_TEXT = get_font(int(SCREEN_WIDTH * 0.078), None).render("Space Oregon Trail", True, "White")
         screen.blit(MENU_TEXT, (int(SCREEN_WIDTH * 0.5) - MENU_TEXT.get_width() // 2, int(SCREEN_HEIGHT * 0.25) - MENU_TEXT.get_height() // 2))
 
         PLAY_BUTTON.update(screen)
@@ -245,17 +245,20 @@ def main_menu():
                     sys.exit()
 
         pygame.display.flip()
-    
+
+
 def Inventory_Menu():
 
     pygame.display.set_caption("Inventory")
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+    Inventory_Slot = pygame.image.load("images\\inventory slot.png")
+    Inventory_Slot = pygame.transform.scale(Inventory_Slot, (SCREEN_HEIGHT//12, SCREEN_HEIGHT//12))
     Inventory_Slot_Size = SCREEN_HEIGHT/12
-
+    
     for column in range(5):
-        for row in range(20):
-            screen.blit(BUTTON, (row * Inventory_Slot_Size, column * Inventory_Slot_Size))
+        for row in range(5):
+            screen.blit((Inventory_Slot), (row * Inventory_Slot_Size, column * Inventory_Slot_Size))
             screen.fill((255, 255, 255))
     
     runnung = True
@@ -265,3 +268,5 @@ def Inventory_Menu():
         screen.blit(BG, (0, 0))
 
         pygame.display.flip()
+
+# Inventory_Menu()
