@@ -10,6 +10,7 @@ import Encounters
 
 main_menu()
 
+
 class startGame():
     def __init__():
         pass
@@ -24,7 +25,7 @@ class startGame():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:  
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
