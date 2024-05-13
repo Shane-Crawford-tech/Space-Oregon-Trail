@@ -4,7 +4,9 @@ import textwrap
 import sys
 from Constants import *
 import pygame
+from battles import *
 from Button import Button
+from Armor_Health_and_Move_Systems import *
 
 
 
@@ -12,6 +14,7 @@ from Button import Button
 
 def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
     from SOT import main_menu
+    from map_module import run_map
     """
     Function to display an encounter
     """
@@ -35,7 +38,7 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                           text_input=chosen_encounter.encounter_option_list[0], font=get_font(25))
       BUTTON_TWO = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 50,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[1], font=get_font(25))
 
     elif chosen_encounter.number_of_options == 3:
@@ -43,10 +46,10 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                           text_input=chosen_encounter.encounter_option_list[0], font=get_font(25))
       BUTTON_TWO = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 50,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[1], font=get_font(25))
       BUTTON_THREE = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 100,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 2*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[2], font=get_font(25))
       
     elif chosen_encounter.number_of_options == 4:
@@ -54,13 +57,13 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                           text_input=chosen_encounter.encounter_option_list[0], font=get_font(25))
       BUTTON_TWO = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 50,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[1], font=get_font(25))
       BUTTON_THREE = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 100,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[2], font=get_font(25))
       BUTTON_FOUR = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 150,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 3*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[3], font=get_font(25))
       
     elif chosen_encounter.number_of_options == 5:
@@ -68,16 +71,16 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2,
                           text_input=chosen_encounter.encounter_option_list[0], font=get_font(25))
       BUTTON_TWO = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 50,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + SCREEN_HEIGHT//12,
                           text_input=chosen_encounter.encounter_option_list[1], font=get_font(25))
       BUTTON_THREE = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 100,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 2*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[2], font=get_font(25))
       BUTTON_FOUR = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 150,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 3*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[3], font=get_font(25))
       BUTTON_FIVE = Button(image=pygame.transform.scale(BUTTON, (SCREEN_WIDTH/2, SCREEN_HEIGHT/15)),
-                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 200,
+                          x_pos=SCREEN_WIDTH // 2, y_pos=SCREEN_HEIGHT // 2 + 4*SCREEN_HEIGHT/12,
                           text_input=chosen_encounter.encounter_option_list[4], font=get_font(25))
                                            
                           
@@ -96,16 +99,16 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                 def first_button():
                   if BUTTON_ONE.rect.collidepoint(mouse_pos):
                     if BUTTON_ONE.text_input.startswith("[Exit]"):
-                      main_menu()
+                      run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
                     elif BUTTON_ONE.text_input.startswith("[Chance]"):
                       for value in chosen_encounter.chances_list:
                         if value == BUTTON_ONE.text_input:
                           i = chosen_encounter.chances_list.index(value)
                           number = randint(0, 100)
                           if number >= 51:
+                            P1.Heal(chosen_encounter.first_result_health_changes[i])
                             encounter_results(chosen_encounter.first_results[i])
                             pass # for currency
-                            pass # for health
                           elif number < 51 and chosen_encounter.second_results != []:
                             encounter_results(chosen_encounter.second_results[i])
                             pass # for currency
@@ -121,18 +124,20 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                       for value in chosen_encounter.dialogues_list:
                         if value == BUTTON_ONE.text_input:
                           i = chosen_encounter.dialogues_list.index(value)
+                          P1.Heal(chosen_encounter.response_health_changes[i])
                           encounter_results(chosen_encounter.responses[i])
                           pass # for currency
                           pass # for health
                     elif BUTTON_ONE.text_input.startswith("[Battle]"):
-                      pass
+                      O1 = Armor_and_Health("images\\enemy.png", "Bandit", 200, 400)
+                      battle(O1)
                     elif BUTTON_ONE.text_input.startswith("[Give In]"):
                       pass
                     
                 def second_button():
                   if BUTTON_TWO.rect.collidepoint(mouse_pos):
                     if BUTTON_TWO.text_input.startswith("[Exit]"):
-                      main_menu()
+                      run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
                     elif BUTTON_TWO.text_input.startswith("[Chance]"):
                       for value in chosen_encounter.chances_list:
                         if value == BUTTON_TWO.text_input:
@@ -161,14 +166,15 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           pass # for currency
                           pass # for health
                     elif BUTTON_TWO.text_input.startswith("[Battle]"):
-                      pass
+                      O1 = Armor_and_Health("images\\enemy.png", "Bandit", 200, 400)
+                      battle(O1)
                     elif BUTTON_TWO.text_input.startswith("[Give In]"):
                       pass
                       
                 def third_button():
                   if BUTTON_THREE.rect.collidepoint(mouse_pos):
                     if BUTTON_THREE.text_input.startswith("[Exit]"):
-                      main_menu()
+                      run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
                     elif BUTTON_THREE.text_input.startswith("[Chance]"):
                       for value in chosen_encounter.chances_list:
                         if value == BUTTON_THREE.text_input:
@@ -197,14 +203,15 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           pass # for currency
                           pass # for health
                     elif BUTTON_THREE.text_input.startswith("[Battle]"):
-                      pass
+                      O1 = Armor_and_Health("images\\enemy.png", "Bandit", 200, 400)
+                      battle(O1)
                     elif BUTTON_THREE.text_input.startswith("[Give In]"):
                       pass
                       
                 def fourth_button():
                   if BUTTON_FOUR.rect.collidepoint(mouse_pos):
                     if BUTTON_FOUR.text_input.startswith("[Exit]"):
-                      main_menu()
+                      run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
                     elif BUTTON_FOUR.text_input.startswith("[Chance]"):
                       for value in chosen_encounter.chances_list:
                         if value == BUTTON_FOUR.text_input:
@@ -233,14 +240,15 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           pass # for currency
                           pass # for health
                     elif BUTTON_FOUR.text_input.startswith("[Battle]"):
-                      pass
+                      O1 = Armor_and_Health("images\\enemy.png", "Bandit", 200, 400)
+                      battle(O1)
                     elif BUTTON_FOUR.text_input.startswith("[Give In]"):
                       pass
                       
                 def fifth_button():
                   if BUTTON_FIVE.rect.collidepoint(mouse_pos):
                     if BUTTON_FIVE.text_input.startswith("[Exit]"):
-                      main_menu()
+                      run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
                     elif BUTTON_FIVE.text_input.startswith("[Chance]"):
                       for value in chosen_encounter.chances_list:
                         if value == BUTTON_FIVE.text_input:
@@ -269,7 +277,8 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
                           pass # for currency
                           pass # for health
                     elif BUTTON_FIVE.text_input.startswith("[Battle]"):
-                      pass
+                      O1 = Armor_and_Health("images\\enemy.png", "Bandit", 200, 400)
+                      battle(O1)
                     elif BUTTON_FIVE.text_input.startswith("[Give In]"):
                       pass
                       
@@ -333,7 +342,8 @@ def encounter_menu(SCREEN_WIDTH, SCREEN_HEIGHT):
         pygame.display.flip()
 
 def encounter_results(text):
-    from SOT import main_menu
+    from SOT import main_menu,SCREEN_HEIGHT, SCREEN_WIDTH
+    from map_module import run_map
     pygame.display.set_caption("Encounter")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
     
@@ -344,9 +354,10 @@ def encounter_results(text):
                 pygame.quit()
                 sys.exit()
         elif event.type == pygame.KEYDOWN:
-          main_menu()
+          if pygame.KEYDOWN == pygame.K_ESCAPE:
+            main_menu()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-          main_menu()
+          run_map(SCREEN_WIDTH, SCREEN_HEIGHT)
     
       screen.fill((255, 255, 255))
       BG = pygame.image.load("images\\space.jpg")
@@ -424,51 +435,38 @@ e1 = Encounter("Trade", "Example Shop", "This is a shop.", 1)
 e1.Choices("[Exit]", "You can leave the shop with this button.")
 e1.Choices("[Trade]", "You can initiate trade with this button.")
 
-e2 = Encounter("Ship-based", "Yearly Celebration", textwrap.fill("""As you do yearly, your colony hosts the anneversary of the Space Warlord's death.
-This time, however, it seems the colony wants to have a massive feast. Will you keep the celebration modest, or go all out?""", width=50), 2)
+e2 = Encounter("Ship-based", "Yearly Celebration", "Your colony hosts the anneversary of the Space Warlord's death. Will it be modest, or will it be extravigant?", 2)
 e2.Choices("[Dialogue]", "Allow a feast to be had! The more food the merrier, as they say.")
 e2.Results("Though it was a bit costly, the colony appriciates it. It seems the colony even grew as a result.", None, None, None, None, -50, 10)
 e2.Choices("[Dialogue]", "Keep things modest. You will all need to keep supplies for the journey ahead.")
 e2.Results("It was a small celebration, one that wouldn't hurt the colony in any way. Though that's not to say some people weren't annoyed.")
 
-e3 = Encounter("Event", "Astreoids", textwrap.fill("""Your colony approaches an asteroid field. The only way to get to your
- destination on time is to go through. Alternatively, you could change route and go around. What do you choose?""", width=50), 4)
-e3.Choices("[Exit]", "Decide to go a different route.")
+e3 = Encounter("Event", "Astreoids", "Your colony approaches an asteroid field. Will you go around, or push through?", 3)
 e3.Choices("[Chance]", "Decide to go through it anyways.")
-e3.Results(None, "You succeeded in making it through! What a lucky break.", textwrap.fill("""Unfortunately, though you 
-made it through the field, your ship took damage as a result, and some crew were lost.""", width=50), None, None, 0, 0, 0, 0, 0, -30)
+e3.Results(None, "You succeeded in making it through! What a lucky break.", "You made it through the field while losing some crew.", None, None, 0, 0, 0, 0, 0, -30)
 e3.Choices("[Item/Weaponry]", "Fire away at the asteroids to clear a path.")
 e3.Results(None, None, None, "Laser Cannons", "Firing your laser cannons, your ship blasts a clear path through the asteroids, making it out cleanly.")
 e3.Choices("[Item/Weaponry]", "Overcharge the ship's reactor, giving it enough power to get through quick and unscathed.")
-e3.Results(None, None, None, textwrap.fill("""Extra Reactor Core", "The core allowed for yoiur ship to get enough power 
-           to charge through the field. Before you knew it, the ship was clear through.""",width=50))
+e3.Results(None, None, None, "Extra Reactor Core", "The core allowed for your ship to get enough power to charge through the field.")
 
-e4 = Encounter("Event", "Abandoned Vessel", textwrap.fill("""As your ship charts its course, you come across an 
-abandoned fleet of vessels which don't appear to have been picked clean. Valuable loot could be found here.""", width=50), 3)
+e4 = Encounter("Event", "Abandoned Vessel", "You come across an abandoned fleet of vessels which don't appear to have been picked clean.", 3)
 e4.Choices("[Exit]", "Continue past the fleet. Not worth risking your lives for.")
 e4.Choices("[Chance]", "Choose to explore the vessels.")
-e4.Results(None, textwrap.fill("""Upon further inspection, the ship appeared to be infected from some virus. The crew, however, 
-           managed to fight their way through without any losses. They even found plenty of loot!, 
-          Upon entry, the crew was ambushed by the infected remains of the fleet's previous inhabitants, leading to heavy casualties.""", width=50), None, None, 0, 0, 100, 0, 0, -60)
+e4.Results(None, "Upon further inspection, the ship appeared to be infected from some virus, though you still find valuables.", 
+          "The crew was ambushed, leading ome to lose heir lives", None, None, 0, 0, 100, 0, 0, -60)
 e4.Choices("[Item/Weaponry]", "Using your acquired long range radio, you radio the nearest fleet to inform them of the wreckage.")
-e4.Results(None, None, None, "Long-Range Radio", textwrap.fill("""A salvage and containment crew were contacted, upon which your colony 
-           was rewarded for the information. They should be able to handle things on their own.""", width=50), 0, 0, 0, 0, 0, 0, 400)
+e4.Results(None, None, None, "Long-Range Radio", "A salvge crew was contacted, and you were awrded as a result.", 0, 0, 0, 0, 0, 0, 400)
 
-e5 = Encounter("Battle", "Bandit Fleet", textwrap.fill("""Your colony comes across a group of bandit ships on its travels. 
-               They radio over, 'Give us all of your valuables and gold, or we will destroy that puny ship of yours-'. What is your response?""", width=50), 5)
+e5 = Encounter("Battle", "Bandit Fleet", "You come across a group of bandit ships. They radio over, 'Give us all of your valuables, or we will destroy that puny ship of yours-'. What is your response?", 5)
 e5.Choices("[Dialogue]", "Uhm....who are you, exactly?")
 e5.Results(textwrap.fill("""....are you stupid? Do you really not know what a robbery is? Fucking colonists these days. 
            We  are  taking  your  stuff  or  killing  you  all. Got it now?""", width=50))
-e5.Choices("[Give In]", textwrap.fill("""You conceide, allowing the bandits to dock aboard the ship to get 
-           whatever they want. They don't hurt anyone, but you are now mostly broke and resourceless.""", width=50))
+e5.Choices("[Give In]", "You conceide, allowing the bandits to dock aboard the ship to get whatever they want.")
 e5.Choices("[Chance]", "You attempt to persuade the bandits to let you go.")
-e5.Results(None, textwrap.fill("""*a sigh can be heard over the radio*  'Okay, you know what? I don't have 
-           time to deal with this today. Consider this your lucky break.' They end up leaving your ship alone, for the time being.", 
-                 "'HAH! Seriously?! You think we would let you off that easy? Boys, prepare to blast this junk outta my face.' You 
-           take signifigant casualties from the sudden barrage of fire, and are boarded afterwards.""", width=50), None, None, 0, 0, 0, 0, -1000, -600)
+e5.Results(None, "*a sigh can be heard over the radio*  'Okay, you know what? I don't have time to deal with this today. Consider this your lucky break.'", 
+                 "'HAH! Seriously?! You think we would let you off that easy? Boys, prepare to blast this junk outta my face.' Your ship gets boarded!",   None, None, 0, 0, 0, 0, -1000, -600)
 e5.Choices("[Item/Weaponry]", "Your obvious firepower makes you wonder why they even attempted this.")
-e5.Results(None, None, None, textwrap.fill("""Heavy Rocket Pods", "*some voices can be heard in the background* 'Ah, 
-           right....yes....really? Fuck....alright, you all get to live another day. But next time, next time....be prepared.' The bandits leave your ship alone.""", width=50))
+e5.Results(None, None, None, "Heavy Rocket Pods", "Due to sheer intimitdaton and firepower, the bandits leave you alone.")
 e5.Choices("[Battle]", "No one attempts to attack your colony without punishment. To your stations!")
 
 
@@ -526,3 +524,5 @@ shop = [e1]
 peaceful = [e2]
 event = [e3, e4]
 hostile = [e5]
+
+
